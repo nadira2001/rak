@@ -1,0 +1,84 @@
+{{extend 'layout_invoice_landscap.html'}}
+<head>
+	
+</head>
+<body >
+    <table width="1100px" style="border:none; text-align:center; font-weight:bold;" > 
+
+   <!-- <table width="100%" style="border:none; text-align:center; font-weight:bold;" >-->
+	   <tr >
+		 <td width="100" >&nbsp;</td>
+		 <td align="center" ><span style="border-bottom:1px solid #333; font-size:16px">Daily Visit Summary (Representative wise) </span></td>
+		 <td width="100" ></td>
+	   </tr>
+	</table>
+	<br />
+    <table width="1100px" style="border:none;" > 
+   <!-- <table width="100%" style="border:none;" >-->
+
+              <tr style="background-color:#E6E6E6">
+                 <td width="160">Date :{{=report_date}}</td>
+                 <td width="928">Time :{{=report_time}}</td>
+			   </tr>
+			   
+               
+	</table>
+             <br>
+                       Total:{{=recordCountShow}}
+<table width="1100px" border="1" cellpadding="1" cellspacing="1" class="sample_border" >
+<!--<table width="100%" border="1" cellpadding="1" cellspacing="1" class="sample_border" >-->
+			 
+			
+		<tr  align="left" class="blackCat"  style="background-color:#E6E6E6; font-size:12px;">
+                 <td width="150px">Report Time</td>
+                
+                 <td width="150px">Zone</td>
+              
+                 <td width="150px">Region</td>
+                 <td width="150px">Area</td>
+                 <td width="150px">Territory</td>
+                 <td>Representative</td>
+                 <td width="150px">Total Order Count</td>
+                 <td width="150px">First Order Time</td>
+                 <td  width="150px">Total Doctor Count</td>
+                 <td width="150px">First Doctor</td>
+              
+                 <td width="150px">First DCR Time</td>
+                <!-- <td>Total Rx</td>
+                 <td>First Rx Doctor</td>
+                 <td>First Rx Doctor Date</td>-->
+               
+        </tr>
+			   {{for i,record in enumerate(ordrasc):}}
+			    {{if i%2==0:}}
+					<tr align="left" style="background-color:#FFFFFF; font-size:12px">
+				{{else:}}
+					<tr align="left" style="background-color:#F1F1F1; font-size:12px">
+				{{pass}}
+					<td >{{=str(record['rpt_date_time'])}}</td>
+                    
+                      <td>{{=str(record['level0_name'])}}[{{=str(record['level0_id'])}}]</td>
+                      <td>{{=str(record['level1_name'])}}[{{=str(record['level1_id'])}}]</td>
+                      <td>{{=str(record['level2_name'])}}[{{=str(record['level2_id'])}}]</td>
+                      <td>{{=str(record['level3_name'])}}[{{=str(record['level3_id'])}}]</td>
+                      <td>
+                    {{try:}}{{=stringName}}{{except:}}{{=str(record['rep_id'])}}{{pass}}[{{=str(record['rep_id'])}}]</td>
+                      <td>{{=str(record['order_count'])}}</td>
+                      <td>{{=str(record['first_order_time'])}}</td>
+                      <td>{{=str(record['dcr_count'])}}</td>
+                      <td>{{=str(record['first_visit_doc_name'])}}[{{=str(record['first_visit_doc_id'])}}]</td>
+                      <td>{{=str(record['first_visit_doc_date'])}}</td>
+                      <!--<td>{{=str(record['rx_count'])}}</td>
+                      <td>{{=str(record['first_visit_rx_doc_name'])}}[{{=str(record['first_visit_rx_doc_id'])}}]</td>
+    
+                      <td>{{=str(record['first_visit_rx_doc_date'])}}</td>-->
+				  	
+				 </tr>
+    	   {{pass}}
+		</table>      
+
+                
+                 
+</body>
+
+

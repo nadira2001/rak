@@ -1,0 +1,188 @@
+{{extend 'layout_sample_report.html'}}
+
+<html>
+
+<head>
+
+<script type="text/javascript">
+
+function print_page()
+
+  {
+
+    window.print()
+
+  }
+
+</script>
+
+
+
+</head>
+
+<body>
+
+
+<table width="900px;"> <tr><td style="text-align:right"><!--<a href="{{#=URL(c='report',f='downloadGoodsReceivedSummary',vars=dict(date_from=date_from,date_to=date_to,depot_id=depot_id,depot_name=depot_name,store_id=store_id,store_name=store_name,customer_id=customer_id,customer_name=customer_name,mso_id=mso_id,mso_name=mso_name))}}" >Downlaod</a>--></td></tr></table>
+
+
+
+<table width="700px" cellspacing="1" cellpadding="1">
+
+	<tr>
+
+	  <td><table width="560" style="border:none;" >
+		  <tr >
+		    <td width="90" >YearMonth</td>
+		    <td width="10" >:</td>
+		    <td width="438" >{{=monthGet}}&nbsp;{{=yearGet}}</td>
+	      </tr>
+		  <tr >
+		    <td >RSM</td>
+		    <td >:</td>
+		    <td ><span style="border-right-width:3px;">{{=rsm}}</span></td>
+	      </tr>
+		  <tr >
+		    <td >FM</td>
+		    <td >:</td>
+		    <td ><span style="border-right-width:3px;">{{=fm}}
+		      </span></td>
+	      </tr>
+		  <tr >
+		    <td >TR</td>
+		    <td >:</td>
+		    <td ><span style="border-right-width:3px;">{{=tr}}</span></td>
+	    </tr>
+		  </table>
+		
+	    <table width="900px" style="border:none; text-align:center; font-weight:bold;" >
+		    <tr >
+		      <td width="100" >&nbsp;</td>
+		      <td align="center" ><span style="border-bottom:1px solid #333;">Client Summary</span></td>
+		      <td width="100" ><img  height="30px" src="{{=URL('static','images/comp_logo1.png')}}"/></td>
+	        </tr>
+      </table></td>
+
+	</tr>
+
+	<tr height="10px"></tr>
+
+	<tr>
+
+		<td><table width="900px" border="1" cellpadding="1" cellspacing="1" class="sample_border" >
+		  <tr align="left" class="blackCatHead"  height="20px" ;>
+		    
+		    <td style="background-color:#FFC">Client</td>
+            <td style="background-color:#FFC">ClientName</td>
+            <td>01</td> <td>02</td><td>03</td><td>04</td>
+            <td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td>
+            <td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td>
+            <td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td style="background-color:#FFC">Total</td>
+	      </tr>
+		  {{ p=0}} 		  
+		  {{docCunt=0}}
+          {{totalVisit=0}}
+		  {{for i,record in enumerate(records):}}
+          {{
+             docCunt=docCunt+1
+             total=0
+             d_1=' ';d_2=' ';d_3=' '; d_4=' '; d_5=' '; d_6=' '; d_7=' '; d_8=' '; d_9=' '; d_10=' '; d_11=' '; d_12=' ';  
+             d_13=' '; d_14=' ';  d_15=' '; d_16=' '; d_17=' ';  d_18=' '; d_19=' '; d_20=' ';  d_21=' ';  d_22=' '; d_23=' '; 			             d_24=' ';d_25=' '; d_26=' '; d_27=' '; d_28=' ';d_29=' ';d_30=' ';d_31=' ';
+			 if int(record.d_1)>0: d_1='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_2)>0: d_2='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_3)>0: d_3='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_4)>0: d_4='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_5)>0: d_5='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_6)>0: d_6='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_7)>0: d_7='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_8)>0: d_8='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_9)>0: d_9='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_10)>0: d_10='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_11)>0: d_11='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_12)>0: d_12='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_13)>0: d_13='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_14)>0: d_14='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_15)>0: d_15='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_16)>0: d_16='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_17)>0: d_17='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_18)>0: d_18='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_19)>0: d_19='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_20)>0: d_20='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_21)>0: d_21='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_22)>0: d_22='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_23)>0: d_23='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_24)>0: d_24='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_25)>0: d_25='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_26)>0: d_26='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_27)>0: d_27='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_28)>0: d_28='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_29)>0: d_29='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_30)>0: d_30='Y';total=total+1;totalVisit=totalVisit+1;
+             if int(record.d_31)>0: d_31='Y';total=total+1;totalVisit=totalVisit+1;
+            }} 
+             <tr  align="left" class="blackCat"  style="vertical-align:middle; font-size:10px;">
+             <td style="background-color:#FFC">{{=record.client_id}}</td>
+            <td style="background-color:#FFC">{{=record.client_name}}</td>
+            <td>{{=d_1}}</td>
+            <td>{{=d_2}}</td>
+            <td>{{=d_3}}</td>
+            <td>{{=d_4}}</td>
+            <td>{{=d_5}}</td>
+            <td>{{=d_6}}</td>
+            <td>{{=d_7}}</td>
+            <td>{{=d_8}}</td>
+            <td>{{=d_9}}</td>
+            <td>{{=d_10}}</td>
+            <td>{{=d_11}}</td>
+            <td>{{=d_12}}</td>
+            <td>{{=d_13}}</td>
+            <td>{{=d_14}}</td>
+            <td>{{=d_15}}</td>
+            <td>{{=d_16}}</td>
+            <td>{{=d_17}}</td>
+            <td>{{=d_18}}</td>
+            <td>{{=d_19}}</td>
+            <td>{{=d_20}}</td>
+            <td>{{=d_21}}</td>
+            <td>{{=d_22}}</td>
+            <td>{{=d_23}}</td>
+            <td>{{=d_24}}</td>
+            <td>{{=d_25}}</td>
+            <td>{{=d_26}}</td>
+            <td>{{=d_27}}</td>
+            <td>{{=d_28}}</td>
+            <td>{{=d_29}}</td>
+            <td>{{=d_30}}</td>
+            <td>{{=d_31}}</td>
+          
+  
+		    
+            
+            <td style="background-color:#FFC">{{=total}}</td>
+  </tr>
+		  {{pass}}
+          
+          <font style="font-size:14px; color:#004080">Number Clients in this territory: </font><font style="font-size:14px; color:#B70060">{{=docTr}}</font><br>
+          <font style="font-size:14px; color:#004080">Number Clients visited in this territory: </font><font style="font-size:14px; color:#B70060">{{=docCunt}}</font><br>
+          <font style="font-size:14px; color:#004080">Total number of Client Visit: </font><font style="font-size:14px; color:#B70060">{{=totalVisit}}</font>
+	  </table>		  <br></td>
+
+			
+
+	</tr>
+
+</table>
+
+<br/>
+
+
+
+
+<br/>
+
+
+
+</body>
+
+</html>
+

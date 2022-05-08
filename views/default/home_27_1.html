@@ -1,0 +1,320 @@
+{{extend 'layout.html'}}
+ <style type="text/css">
+	body{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	
+	}
+	.sample_border{
+	border-width: 1px!important;
+    border:1px solid #bdc6c7!important;
+    background: #d2e8ea75
+	}
+	.sample_border td{
+	border-width: 1px!important;
+    padding: 1px!important;
+    border:1px solid #bdc6c7!important;
+    /*border-bottom-color: #8c8989!important;*/
+	}
+	h5{
+		color: #333131;
+		margin: 5px
+	}
+	.sample_border_tr_head{
+		background: #6dd2de
+	}
+	.sample_border_tr2{
+		background: #b2e2e67a
+	}
+ </style>
+<script>
+  //var base_url="http://127.0.0.1:8000/";
+//var base_url="http://app.businesssolutionapps.com/";
+  var base_url=location.protocol + "//" + location.hostname + (location.port && ":" + location.port) + "/{{=request.application}}/";
+
+	function setStorageDate(){
+		//alert(base_url+'default/get_item_data_list');
+		document.getElementById("msgid").innerHTML="Wait...";
+		  localStorage.itemDataStr="";
+		  $.ajax({
+			  url: base_url+'default/get_item_data_list',
+			  success: function(itemDataStr) {					
+				if(typeof(Storage)!=="undefined"){
+				  	localStorage.itemDataStr=itemDataStr;
+				  	document.getElementById("msgid").innerHTML="";
+				}
+				else{
+
+					document.getElementById("msgid").innerHTML="Error: local storage. Please communicate with system administrator.";
+
+				};
+			}
+		});	
+		
+		localStorage.itemBatchStr="";
+		    $.ajax({
+			  url: base_url+'default/get_item_batch',
+			  success: function(itemBatchStr) {					
+				if(typeof(Storage)!=="undefined")
+				  {
+				  	localStorage.itemBatchStr=itemBatchStr;
+				  	document.getElementById("msgid").innerHTML="";
+				  }
+				else
+				  {
+					document.getElementById("msgid").innerHTML="Error: local storage. Please communicate with system administrator.";
+				};
+			  }
+			});	
+			
+		 localStorage.depotStr="";
+		  $.ajax({
+			  url: base_url+'default/get_item_batch',
+
+			  success: function(itemBatchStr) {					
+
+				if(typeof(Storage)!=="undefined")
+
+				  {
+
+				  	localStorage.itemBatchStr=itemBatchStr;
+					
+				  	document.getElementById("msgid").innerHTML="";
+
+				  }else{
+					document.getElementById("msgid").innerHTML="Error: local storage. Please communicate with system administrator.";
+				  };
+			  }
+			});	
+	};
+</script>
+
+<body onLoad="setStorageDate();">
+	<table width="100%"  border="0" cellspacing="0" cellpadding="0" style="background-color:#FFFFFF;" >
+		<tr height="30px" >
+			<td><span class="blackCatTitle"></span></td>
+		</tr>
+		<tr  height="1px" style="background-color:#CCCCCC;">
+			<td ></td>
+		</tr>
+	</table>
+
+
+
+<table width="100%">
+	<tr>
+		<td width="10%">&nbsp;</td>
+		<td width="80%">
+			<table width="100%" height=""  border="0" cellspacing="0" cellpadding="0" class="page_color"  >
+				<tr style="vertical-align:top;">
+					<td width="50%"><span id="msgid"></span></td>
+					<td width="45%" align="right">{{if session.user_type=='Admin':}}
+						<a href="{{=URL('dashboard','dashboard')}}"><!--<div><img src="{{#=URL('static','images/dashboard2.png')}}" alt="Dashboard Icon" style="width:100px;height:50px;border:0"></div>-->
+							<input type="button" value="Dashboard" style="width:120px; height:40px; color:#066;border: 1px solid #86acb1" />
+						</a>{{pass}}
+					</td>
+				</tr>
+			</table>
+			
+            <table width="100%" border="1" cellpadding="1" cellspacing="1" class="sample_border" >
+				<tr style="vertical-align:top;" class="sample_border_tr_head">
+					<td colspan="4" style="text-align: center;">
+						<h5>First Submit</h5>
+					</td>
+				</tr>
+
+				<tr class="sample_border_tr2">
+					<td width="15%" align="left" ><span style="padding-left:5px">Submit by ID</span></td>
+					<td width="25%" align="left" ><span style="padding-left:5px">Submit by Name</span></td>
+					<td width="15%" align="left" ><span style="padding-left:5px">Type</span></td>
+					<td width="25%" align="left" ><span style="padding-left:5px">Date_Time</span></td>
+				</tr>
+
+			   {{for i,recFirst_submit in enumerate(recFirst_submit):}}
+				<tr>
+					<td width="15%" align="left" ><span style="padding-left:5px">{{=recFirst_submit.rep_id}}</span></td>
+					<td width="25%" align="left" ><span style="padding-left:5px">{{=recFirst_submit.rep_name}}</span></td>
+					<td width="15%" align="left" ><span style="padding-left:5px">{{=recFirst_submit.call_type}}</span></td>
+					<td width="25%" align="left" ><span style="padding-left:5px">{{=recFirst_submit.visit_time}}</span></td>
+				</tr>
+				{{pass}}
+			</table>
+			
+			<br>
+            <table width="1015" border="1" cellpadding="1" cellspacing="1" class="sample_border" >
+				<tr style="vertical-align:top;" class="sample_border_tr_head">
+					<td colspan="8" style="text-align: center;">
+						<h5>Daily Data</h5>
+					</td>
+				</tr>
+				
+				<tr class="sample_border_tr2">
+					<td colspan="2">
+						<span style="padding-left:5px">
+							<a style="text-decoration: none" href="{{=URL(c='default',f='daily_data')}}" target="_blank">SELL
+							</a>
+						</span>
+					</td>
+					<td colspan="2">
+						<span style="padding-left:5px">
+							<a style="text-decoration: none" href="{{=URL(c='default',f='daily_dataDcr')}}" target="_blank">DCR</a>
+						</span>
+					</td>
+					<td colspan="2">
+						<span style="padding-left:5px">
+							<a style="text-decoration: none" href="{{=URL(c='default',f='daily_dataCheckIn')}}" target="_blank">Check-In</a>
+						</span>
+					</td>
+					<td colspan="2">
+						<span style="padding-left:5px">
+							<a style="text-decoration: none" href="{{=URL(c='default',f='daily_dataFarm')}}" target="_blank">Farm</a>
+						</span>
+					</td>
+				</tr>
+				<tr class="">
+					<td colspan="2"><span style="padding-left:5px">{{=sell_count}}</span></td>
+					<td colspan="2"><span style="padding-left:5px">{{=doc_count}}</span></td>
+					<td colspan="2"><span style="padding-left:5px">{{=checkIn_count}}</span></td>
+					<td colspan="2"><span style="padding-left:5px">{{=farm_count}}</span></td>
+				</tr>
+			</table>
+			
+			<br>
+            <table width="1015" border="1" cellpadding="1" cellspacing="1" class="sample_border" >
+				<tr style="vertical-align:top;" class="sample_border_tr_head">
+					<td colspan="8" style="text-align: center;">
+						<h5>Monthly Avg. Data</h5>
+					</td>
+				</tr>
+				<tr class="sample_border_tr2">
+					<td colspan="2">
+						<span style="padding-left:5px">
+							<a href="{{=URL(c='default',f='monthly_selldata')}}" target="_blank" style="text-decoration: none;">SELL</a>
+						</span>
+					</td>
+					<td colspan="2">
+						<span style="padding-left:5px">
+							<a href="{{=URL(c='default',f='monthly_dataDcr')}}" target="_blank" style="text-decoration: none;">DCR</a>
+						</span>
+					</td>
+					<td colspan="2">
+						<span style="padding-left:5px">
+							<a href="{{=URL(c='default',f='monthly_dataCheckIn')}}" target="_blank" style="text-decoration: none;">Check-In</a>
+						</span>
+					</td>
+					<td colspan="2">
+						<span style="padding-left:5px">
+							<a href="{{=URL(c='default',f='monthly_dataFarm')}}" target="_blank" style="text-decoration: none;">Farm</a>
+						</span>
+					</td>
+				</tr>
+				<tr style="background: #c5dadc">
+					<td colspan="1" width="10%"><span style="padding-left:5px">Avg</span></td>
+					<td colspan="1" width="5%"><span style="padding-left:5px">Total</span></td>
+					<td colspan="1" width="10%"><span style="padding-left:5px">Avg</span></td>
+					<td colspan="1" width="5%"><span style="padding-left:5px">Total</span></td>
+					<td colspan="1" width="10%"><span style="padding-left:5px">Avg</span></td>
+					<td colspan="1" width="5%"><span style="padding-left:5px">Total</span></td>
+					<td colspan="1" width="10%"><span style="padding-left:5px">Avg</span></td>
+					<td colspan="1" width="5%"><span style="padding-left:5px">Total</span></td>
+				</tr>
+				<tr>
+					<td colspan="1" width="10%"><span style="padding-left:5px">{{=round(float(sell_countavg),2)}}</span></td>
+					<td colspan="1" width="10%"><span style="padding-left:5px">{{=sell_count}}</span></td>
+					<td colspan="1" width="10%"><span style="padding-left:5px">{{=round(float(doc_countavg),2)}}</span></td>
+					<td colspan="1" width="10%"><span style="padding-left:5px">{{=doc_count}}</span></td>
+					<td colspan="1" width="10%"><span style="padding-left:5px">{{=round(float(checkIn_countavg),2)}}</span></td>
+					<td colspan="1" width="10%"><span style="padding-left:5px">{{=checkIn_count}}</span></td>
+					<td colspan="1" width="10%"><span style="padding-left:5px">{{=round(float(farm_countavg),2)}}</span></td>
+					<td colspan="1" width="10%"><span style="padding-left:5px">{{=farm_count}}</span></td>
+				</tr>
+			</table>
+			
+			<br>
+           <!--  <table width="1000" border="1" cellpadding="1" cellspacing="1" class="sample_border" >
+				<tr style="vertical-align:top;" class="sample_border_tr_head">
+					<td colspan="8" style="text-align: center;">
+						<h5>DCR Join Call</h5>
+					</td>
+				</tr>
+				<tr class="sample_border_tr2">
+					<td ><span style="padding-left:5px">RSM</span></td>
+					<td ><span style="padding-left:5px">AM</span></td>
+					<td ><span style="padding-left:5px">BM</span></td>
+				</tr>
+				
+			</table> -->
+			
+
+            <table width="1000" border="1" cellpadding="1" cellspacing="1" class="sample_border" >
+				<tr style="vertical-align:top;" class="sample_border_tr_head">
+					<td colspan="8" style="text-align: center;">
+						<h5>Doctor Visit With Gift / Sample / PPM</h5>
+					</td>
+				</tr>
+				</table>
+				<div style="height:300px; overflow: scroll;">
+				<table width="1000" border="1" cellpadding="1" cellspacing="1" class="sample_border" >
+				<tr class="sample_border_tr2">
+					<td width="20%"> <span style="padding-left:5px">Doctor </span></td>
+					
+					<td width="20%"> <span style="padding-left:5px">Visited By </span></td>
+					
+					<td width="10%"> <span style="padding-left:5px">Gift</span></td>
+					<td width="10%"> <span style="padding-left:5px">Sample</span></td>
+					<td width="10%"> <span style="padding-left:5px">PPM </span></td>
+					<td width="20%"> <span style="padding-left:5px">Date Time</span></td>
+				</tr>
+			   {{for i,rec_docVisit in enumerate(rec_docVisit):}}
+				<tr >
+					<td width="20%"> <span style="padding-left:5px">{{=rec_docVisit.doc_id}}</span><br><span style="padding-left:5px">{{=rec_docVisit.doc_name}}</span></td>
+					
+					<td width="20%"> <span style="padding-left:5px">{{=rec_docVisit.rep_id}}</span><br><span style="padding-left:5px">{{=rec_docVisit.rep_name}}</span></td>
+					
+					<td width="10%">
+						<span style="padding-left:5px">
+							{{
+								giftstr=''
+								sampletstr=''
+								ppmstr=''
+							if (str(rec_docVisit.giftnsample)!=''):
+							  giftstr=str(rec_docVisit.giftnsample).split('rdsep')[1].replace(",,","").replace("fdsep","|")
+							  sampletstr=str(rec_docVisit.giftnsample).split('rdsep')[2].replace(",,","").replace("fdsep","|")
+							  ppmstr=str(rec_docVisit.giftnsample).split('rdsep')[3].replace(",,","").replace("fdsep","|")
+							
+							pass
+							
+							
+							
+							}}
+							{{=giftstr}}
+						</span>
+					</td>
+					<td width="10%"> 
+						<span style="padding-left:5px">
+							{{=sampletstr}}
+									
+							
+						</span>
+					</td>
+					<td width="10%"> 
+						<span style="padding-left:5px">
+						{{=ppmstr}}
+						</span>
+					</td>
+					<td width="20%"> 
+						<span style="padding-left:5px">{{=rec_docVisit.visit_dtime}}</span>
+					</td>
+
+				</tr>
+				{{pass}}
+			</table>
+			</div>
+		</td>
+		<td width="10%">&nbsp;</td>
+	</tr>
+</table>
+<br>
+<br>
+<br>
+</body>

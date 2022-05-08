@@ -1,0 +1,664 @@
+{{extend 'layout.html'}}
+
+<head>
+<!--<link rel="stylesheet" href="{{=URL('static', 'jchart/styles/jchartfx.css')}}" type="text/css" />
+<script src="{{=URL('static','jchart/js/jchartfx.system.js')}}"></script>
+<script src="{{=URL('static','jchart/js/jchartfx.coreVector.js')}}"></script>
+<script src="{{=URL('static','jchart/js/jchartfx.advanced.js')}}"></script>-->
+
+<link rel="stylesheet" href="{{=URL('static', 'js_and_css/ui.theme.css')}}" type="text/css" />
+<link rel="stylesheet" href="{{=URL('static', 'js_and_css/jquery-ui.css')}}" type="text/css" />
+<link rel="stylesheet" href="{{=URL('static', 'js_and_css/style.css')}}" type="text/css" />
+
+<script src="{{=URL('static','js_and_css/jquery-1.8.2.js')}}"></script>
+<script src="{{=URL('static','js_and_css/jquery-ui.js')}}"></script>
+
+<style type="text/css">	
+	<!--color-->
+	
+	input[type=submit] {
+		margin: 2px 0px 2px 0px;
+		padding: 0px 0px 2px 0px;
+		width:200px;
+	}
+	
+	input[type=text] {
+		width:120px;
+	}
+	
+	.checkbox{
+	padding-left:0px;
+	}
+	
+	.multiselect{ 
+			text-align:left;
+			height:28px;
+	}
+	
+	.page_color,body{
+			font-family:Arial, Helvetica, sans-serif;
+			font-size:13px;	
+			}
+
+</style>
+
+
+<script>
+ $(function() { 
+		
+	$( "#accordionReport" ).accordion({
+	  active:0,
+      heightStyle: "content",
+	  collapsible: true
+    });
+	
+  });
+  </script>
+  
+   
+<script>
+var base_url=location.protocol + "//" + location.hostname + (location.port && ":" + location.port) + "/{{=request.application}}/";
+
+</script>
+
+
+<style>
+	.rptlist{font-size:15px; height:auto; }
+	.rptlist:hover{ height:auto;}
+	.rptul{color:#0076AE; background-color:#F0F0F0;}
+	.rptdiv{  font-size:16px; color:#0076AE; background-color:#F0F0F0;}
+	
+	#accordionReport ul{	list-style-type:none;margin:0; font-size:15px; }
+	#accordionReport li{ margin:1px; border-radius:5px; border-bottom:1px solid #CCCCCC; font-size:15px; background-color:#F7F7F7; height:20px; padding:5px 2px 2px 15px;}/*:#F7F7F7*/
+	
+	#accordionReport li:hover{ height:21px;background-color:#F5F5F5; font-size:15px;}
+</style>
+
+</head>
+<body id="htmlbody">
+<!--<input type="hidden" value="{{#=salesTrendList}}" id="chartDataSalesTrend"/>-->
+
+{{currYear=str(date_fixed)[0:4]}}
+{{currMonth=str(date_fixed)[5:7]}}
+
+<!--Form Title -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#FFFFFF;">
+  <tr height="30px">
+    <td><div class="blackCatTitle">Analysis 2</div></td>
+  </tr>
+  <tr >
+    <td height="1px" style="background-color:#CCCCCC;"></td>
+  </tr>
+</table>
+<!--Form Content -->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="page_color">
+  
+  <tr height="20px">
+  	<td width="10px"></td>
+  	<td> </td>	
+  </tr>
+  
+  <tr >
+    <td width="10px"></td>
+	<td valign="top">					
+		 
+		   <div >  
+           
+           <table width="900" border="0" cellpadding="0" cellspacing="0">
+				<form name="form2" id="form2" action="{{=URL(c='zrpt_tosc',f='analysis')}}" target="_blank">
+                <tr>
+                	
+					<td valign="top">
+					<div align="center" style="background:linear-gradient(to top, #876543 -50%, #876543 100%); color:#fff; border-radius:8px;">
+                    	<table width="350">
+                        	<tr >
+                              <td colspan="3" style=" font-weight:bold;">Target vs Order, Sale & Coll.</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+                            <tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="Target_vs_Order_Sale_Coll_RI" value="Target vs Order, Sale & Coll. [RI]" title="Target vs Order, Sale & Coll. [RI]"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_RI_D" value="D" title="Date Range"/></td>--->
+                            </tr>
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+							
+							<tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="Target_vs_Order_Sale_Coll_AI" value="Target vs Order, Sale & Coll. [AI]" title="Target vs Order, Sale & Coll. [AI]"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_AI_D" value="D" title="Date Range"/></td>--->
+							</tr> 
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+														
+							<tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="Target_vs_Order_Sale_Coll_MPI" value="Target vs Order, Sale & Coll. [MPI]" title="Target vs Order, Sale & Coll. [MPI]"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr>
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+						</table>
+						</div>
+					</td>
+					<td>&nbsp;</td>
+                    <td valign="top">
+					
+					<div align="center" style="background:linear-gradient(to top, #999966 -50%, #999966 100%); color:#fff; border-radius:8px;">
+					<table width="350">
+                        	<tr >
+                              <td colspan="3" style=" font-weight:bold;">Product wise sales.</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+                        	
+														
+							<tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="product_wise_sales_qrt_RI" value="Product wise sales qnty [RI]" title="Product wise sales qnty [RI]"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr>  
+							
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+														
+							<tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="product_wise_sales_qrt_AI" value="Product wise sales qnty [AI]" title="Product wise sales qnty [AI]"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr>  
+							
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+														
+							<tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="product_wise_sales_qrt_MPI" value="Product wise sales qnty [MPI]" title="Product wise sales qnty [MPI]"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr> 
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>							
+							               
+                    </table>
+                    </div>
+                    </td>  
+
+					
+                </tr>
+				
+				<tr><td>&nbsp;</td></tr>
+                <tr>
+				<td valign="top">
+				<div align="center" style="background:linear-gradient(to top, #999966 -50%, #999966 100%); color:#fff; border-radius:8px;">
+					<table width="350">
+					
+                        	<tr >
+                              <td colspan="3" style=" font-weight:bold;">Summary (Allocation Data).</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+                        	
+														
+							<tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="summary_allocation_data_RI" value="Allocation and Usage  [RI]" title="Allocation and Usage [RI]"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr>  
+							
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+														
+							<tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="summary_allocation_data_AI" value="Allocation and Usage [AI]" title="Allocation and Usage [AI]"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr>  
+							
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+														
+							<tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="summary_allocation_data_MPI" value="Allocation and Usage [MPI]" title="Allocation and Usage [MPI]"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr>  
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>							
+							               
+                    </table>
+                    </div>
+                    </td> 
+					
+					<td>&nbsp;</td>					
+					<td valign="top">
+					<div align="center" style="background:linear-gradient(to top, #876543 -50%, #876543 100%); color:#fff; border-radius:8px;">
+                    	<table width="350">
+                        	<tr >
+                              <td colspan="3" style=" font-weight:bold;">KPI Product sales.</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+                        	
+														
+							<tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="KPI_Prod_Target_vs_Sale_RI" value="KPI Product Sale [RI]" title="KPI Product Sale [RI]"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr>  
+							
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+														
+							<tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="KPI_Prod_Target_vs_Sale_AI" value="KPI Product Sale [AI]" title="KPI Product Sale [AI]"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr>  
+							
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+														
+							<tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="KPI_Prod_Target_vs_Sale_MPI" value="KPI Product Sale [MPI]" title="KPI Product Sale [MPI]"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr> 
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>							
+							               
+                    </table>
+                    </div>
+                    </td>  
+				</tr>
+				
+				
+				<tr><td>&nbsp;</td></tr>
+                <tr>
+					<td valign="top">
+					<div align="center" style="background:linear-gradient(to top, #876543 -50%, #876543 100%); color:#fff; border-radius:8px;">
+                    	<table width="350">
+                        	<tr >
+                              <td colspan="3" style=" font-weight:bold;">Monthly sales.</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+                        	
+														
+							<tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="customer_wise_monthly_sales" value="Customer wise monthly Sales Collection & Outstanding" title="Customer wise monthly Sales Collection & Outstanding"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr>  
+							
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+														
+							<tr >
+                                <td colspan="3"><input type="submit" style="width:100%; height:30px; background:linear-gradient(to top, #00468C -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:4px; font-size:14px" name="market_wise_monthly_sales" value="Market wise monthly Sales Collection & Outstanding" title="Market wise Sales Collection & Outstanding"/></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr>  
+							
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+														
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+							<tr >
+                                <td colspan="3"><input type="button" style=" border:0; width:100%; height:30px; background-color:#876543; color:#876543; font-weight:bold; font-size:14px" ></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr>  
+							
+							        
+                    </table>
+                    </div>
+                    </td> 				
+					
+					<td>&nbsp;</td>	
+					
+					<td valign="top">
+					<div align="center" style="background:linear-gradient(to top, #999966 -50%, #999966 100%); color:#fff; border-radius:8px;">
+					<table width="350">
+                        	
+							
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+							<tr >
+                              <td colspan="3">&nbsp;</td>
+							  <!---<td >&nbsp;</td>--->
+                            </tr>
+							
+							<tr >
+                                <td colspan="3"><input type="button" style=" border:0; width:100%; height:30px; background-color:#999966; color:#999966; font-weight:bold; font-size:14px" ></td>
+								<!---<td ><input type="submit" style="width:100%" name="Target_vs_Order_Sale_Coll_MPI_D" value="D" title="Date Range"/></td>--->
+							</tr>  
+							        
+                    </table>
+                    </div>
+                    </td> 
+					
+				</tr>
+				</form>
+            </table>
+                
+		   </div>
+          
+		   <br>
+	  </div>
+      
+      </td>
+  </tr>
+</table>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	// Test build of multiselect.
+	var build = function(select, tr) {
+		select.multiselect();
+		
+		if (select.length === 0) {
+			return 'Select not present anymore.';
+		}
+		
+		if (select.css('display') !== 'none') {
+			return 'Select still visible (expected <code>display: none;</code>).';
+		}
+		
+		if ($('button.multiselect', tr).length === 0) {
+			return 'Multiselect button not present.';
+		}
+		
+		if ($('option', select).length !== 5) {
+			return 'Not all options present anymore.';
+		}
+		
+		if ($('ul.multiselect-container', tr).length === 0) {
+			return 'Unordered list <code>.multiselect-container</code> not present.';
+		}
+		
+		if ($('ul.multiselect-container li', tr).length !== 5) {
+			return 'No list item for each option present.';
+		}
+		
+		if ($('ul.multiselect-container li a', tr).length !== 5) {
+			return 'Not all list items come with an anchor inside.';
+		}
+		
+		return false;
+	}($('#test-build-select'), $('#test-build-tr'));
+	
+	if (build) {
+		$('#test-build-tr').removeClass('success').addClass('danger');
+		$('#test-build-tr td').last().html(build);
+	}
+	
+	// Test build with optgroups.
+	var buildOptgroups = function(select, tr) {
+		select.multiselect();
+		
+		if ($('optgroup', select).length !== 2) {
+			return 'Optgroups not present anymore (2 expected).';
+		}
+		
+		var first = $('optgroup', select).get(0);
+		var second = $('optgroup', select).get(1);
+		
+		if ($('option', $(first)).length !== 2) {
+			return 'First optgroup does not have 2 options.';
+		}
+		
+		if ($('option', $(second)).length !== 3) {
+			return 'Second optgroup does not have 3 options.';
+		}
+		
+		// Check the corresponding labels.
+		if ($('label.multiselect-group', tr).length !== 2) {
+			return 'Expected 2 labels within the unordered list.';
+		}
+		
+		// Check labeling of groups.
+		var firstLabel = $('label.multiselect-group', tr).get(0);
+		var secondLabel = $('label.multiselect-group', tr).get(1);
+		
+		if ($(firstLabel).text() !== $(first).prop('label')) {
+			return 'First group labeled incorrectly.';
+		}
+		
+		if ($(secondLabel).text() !== $(second).prop('label')) {
+			return 'Second group labeled incorrectly.';
+		}
+		
+		return false;
+	}($('#test-build-optgroups-select'), $('#test-build-optgroups-tr'));
+	
+	if (buildOptgroups) {
+		$('#test-build-optgroups-tr').removeClass('success').addClass('danger');
+		$('#test-build-optgroups-tr td').last().html(build);
+	}
+	
+	var buildSelected = function(select, tr ) {
+		select.multiselect();
+		
+		if ($('option:selected', select).length !== 1) {
+			return 'Multiselect did not adopt selected options (1 selected option).';
+		}
+		
+		if ($('ul.multiselect-container li.active', tr).length !== 1) {
+			return 'Corresponding list item not set to <code>.active</code>.';
+		}
+		
+		return false;
+	}($('#test-build-selected-select'), $('#test-build-selected-tr'));
+	
+	if (buildSelected) {
+		$('#test-build-selected-tr').removeClass('success').addClass('danger');
+		$('#test-build-selected-tr td').last().html(buildSelected);
+	}
+
+//-----------	Editing code
+	var buildSelectAll = function(select, tr ) {
+		var value ="all";
+		select.multiselect({
+			maxHeight: 150,
+			selectedClass: null,
+			//buttonWidth:'200px',
+			//buttonHeight:'50px',
+			includeSelectAllOption: true,
+			selectAllValue: value
+		});
+		
+		if ($('.multiselect-container input[value="' + value + '"]', tr).length !== 1) {
+			return 'Expected exactly one input with value ' + value + ' as select all option.';
+		}
+		
+		return false;
+	}($('.test-build-select-all-select'), $('#test-build-select-all-tr'));
+	
+	if (buildSelectAll) {
+		$('#test-build-select-all-tr').removeClass('success').addClass('');
+		$('#test-build-select-all-tr td').last().html(buildSelectAll);
+	}
+	//------- close editing code
+	
+	var buildFilter = function(select, tr) {
+		select.multiselect({
+			enableFiltering: true
+		});
+		
+		if ($('.multiselect-search', tr).length !== 1) {
+			return 'No search input present.';
+		}
+		
+	}($('.test-build-filter-select'), $('#test-build-filter-tr'));
+	
+	if (buildFilter) {
+		$('#test-build-filter-tr').removeClass('success').addClass('danger');
+		$('#test-build-filter-tr td').last().html(buildFilter);
+	}
+	
+	// Test select.
+	var select = function(selectElement, tr) {
+		selectElement.multiselect();
+		
+		// Check for no selected options and no active li's.
+		if ($('option:selected', selectElement).length > 0) {
+			return 'There are already selected options (0 expected).';
+		}
+		
+		if ($('ul.multiselect-container li.active', tr).length > 0) {
+			return 'There are already active list items (0 expected).';
+		}
+		
+		selectElement.multiselect('select', '1');
+		
+		if ($('option:selected', selectElement).length !== 1) {
+			return 'Just selected an option - option not marked selected.';
+		}
+		
+		if ($('ul.multiselect-container li.active', tr).length !== 1) {
+			return 'Just selected an option - list item not set active.';
+		}
+		
+		if ($('option:selected', selectElement).first().val() !== '1') {
+			return 'Wrong option selected.';
+		}
+		
+		selectElement.multiselect('select', ['2', '3']);
+		
+		if ($('option:selected', selectElement).length !== 3) {
+			return 'Just selected two additional options - options not marked selected.';
+		}
+		
+		if ($('ul.multiselect-container li.active', tr).length !== 3) {
+			return 'Just selected two additional options - list items not set active.';
+		}
+		
+		var second = $('option:selected', selectElement).get(1),
+			third = $('option:selected', selectElement).get(2);
+		
+		if (second === undefined || second.length === 0) {
+			return 'Could not get second option.';
+		}
+		
+		if (third === undefined || third.length === 0) {
+			return 'Could not get third option.';
+		}
+		
+		if ($(second).val() !== '2' || $(third).val() !== '3') {
+			return 'Wrong options selected.';
+		}
+		
+		return false;
+	}($('#test-select-select'), $('#test-select-tr'));
+	
+	if (select) {
+		$('#test-select-tr').removeClass('success').addClass('danger');
+		$('#test-select-tr td').last().html(select);
+	}
+	
+	// Test deselect.
+	var deselect = function(select, tr) {
+		select.multiselect();
+		
+		// Check for no selected options and no active li's.
+		if ($('option:selected', select).length !== 3) {
+			return 'There should be 3 options selected.';
+		}
+		
+		if ($('ul.multiselect-container li.active', tr).length !== 3) {
+			return 'There should be 3 list items set to active.';
+		}
+		
+		select.multiselect('deselect', '1');
+		
+		if ($('option:selected', select).length !== 2) {
+			return 'Just deselected an option - option not marked deselected.';
+		}
+		
+		if ($('ul.multiselect-container li.active', tr).length !== 2) {
+			return 'Just deselected an option - list item not set inactive.';
+		}
+		
+		if ($('option:selected', select).first().val() !== '2') {
+			return 'Wrong option deselected.';
+		}
+		
+		select.multiselect('deselect', ['2', '3']);
+		
+		if ($('option:selected', select).length > 0) {
+			return 'Just deselected two additional options - options not marked deselected.';
+		}
+		
+		if ($('ul.multiselect-container li.active', tr).length > 0) {
+			return 'Just deselected two additional options - list items not set unactive.';
+		}
+		
+		return false;
+	}($('#test-deselect-select'), $('#test-deselect-tr'));
+	
+	if (deselect) {
+		$('#test-deselect-tr').removeClass('success').addClass('danger');
+		$('#test-deselect-tr td').last().html(deselect);
+	}
+	
+	var maxHeight = function(select, tr) {
+		
+		select.multiselect({
+			maxHeight: 100
+		});
+		
+		var height = $('.multiselect-container', tr).css('max-height');
+		if (height !== '100px') {
+			return 'Max height not set correctly (set: ' + height + ').';
+		}
+		
+		return false;
+	}($('#test-max-height-select'), $('#test-max-height-tr'));
+	
+	if (maxHeight) {
+		$('#test-max-height-tr').removeClass('success').addClass('danger');
+		$('#test-max-height-tr td').last().html(maxHeight);
+	}
+});
+</script>
+</body> 

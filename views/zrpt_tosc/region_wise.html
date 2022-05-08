@@ -1,0 +1,73 @@
+{{extend 'layout_report.html'}}
+<html>
+    <head>
+   
+    </head>
+    <body> 
+	
+	{{total_target = 0}}
+	{{total_s_order = 0}}
+	{{total_sales = 0}}
+	{{total_collection = 0}}	
+	
+	{{for i in range(len(record_rowSTR)):}}
+		{{recordListStr = record_rowSTR[i]}}
+		{{total_target += float(recordListStr['target'])}}
+		{{total_s_order += float(recordListStr['s_order'])}}
+		{{total_sales += float(recordListStr['sales'])}}
+		{{total_collection += float(recordListStr['collection'])}}
+		{{pass}}
+	<table width="900">
+		<tr><td colspan='7' style="font-size:18px; color:#C10C11C11;">Target vs Order, Sale & Coll. [RI]</td></tr>
+		
+		<tr>
+			<td style="width:20%; height:40px; padding:10px; background:linear-gradient(to top, #409FFF -50%, #409FFF 100%); color:#fff; font-weight:bold; border-radius:10px; text-align:center;">Total Target<br/><span style=" font-size:18px;">{{=easy_format(total_target)}}</span></td>
+			<td>&nbsp;</td>
+			<td style="width:20%; height:40px; padding:10px; background:linear-gradient(to top, #008976 -50%, #008976 100%); color:#fff; font-weight:bold; border-radius:10px; text-align:center;">Total Order<br/><span style=" font-size:18px;">{{=easy_format(total_s_order)}}</span></td>
+			<td>&nbsp;</td>
+			<td style="width:20%; height:40px; padding:10px; background:linear-gradient(to top, #234567 -50%, #234567 100%); color:#fff; font-weight:bold; border-radius:10px; text-align:center;">Total Sales<br/><span style=" font-size:18px;">{{=easy_format(total_sales)}}</span></td>
+			<td>&nbsp;</td>
+			<td style="width:20%; height:40px; padding:10px; background:linear-gradient(to top, #876543 -50%, #876543 100%); color:#fff; font-weight:bold; border-radius:10px; text-align:center;">Total Collection<br/><span style=" font-size:18px;">{{=easy_format(total_collection)}}</span></td>
+			
+		</tr>
+	</table>
+	<br/>
+    <table width="900" class="sample_border" >
+        <form id="form1" name="form1" method="post" action="{{=URL(c='zrpt_tosc',f='region_and_area_wise')}}" >
+               <tr align="left" height="20px">
+				   <td colspan="16" >
+					<a href="{{=URL(c='zrpt_tosc',f='download_region_wise')}}" style="text-decoration:none;float:right;"><input type="button" name="btn_download" id="btn_download" value="Download" title="Download"  class="button_update"  style="float:center"/></a>
+                    
+				  </td>			
+			   </tr>
+		</form>
+    </table>
+			
+                
+        <table width="900" border="1" cellpadding="1" cellspacing="1" class="sample_border" >
+            <tr align="left" class="blackCatHead" height="20px" ;  style="font-size:12px; background-color:#E9E9E9;">
+                
+				 <td width=""  >Region</td>
+                 <td width=""align="right" >Target</td>
+                 <td width="" align="right">Order</td>
+                  <td width="" align="right">Sales</td>
+                  <td width="" align="right">Collection</td>              
+            </tr>  
+						
+             {{for i in range(len(record_rowSTR)):}}
+				{{recordListStr = record_rowSTR[i]}}
+				<tr>
+				<td>{{=recordListStr['rm_code']}}|{{=recordListStr['region']}}</td>
+				<td align="right">{{=easy_format(recordListStr['target'])}}</td>
+				<td align="right">{{=easy_format(recordListStr['s_order'])}}</td>
+				<td align="right">{{=easy_format(recordListStr['sales'])}}</td>
+				<td align="right">{{=easy_format(recordListStr['collection'])}}</td>
+				</tr>
+				{{pass}}
+        </table>
+    
+     
+    </body>
+</html>
+
+

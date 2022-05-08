@@ -1,0 +1,64 @@
+{{extend 'layout_report.html'}}
+<html>
+    <head>
+   
+    </head>
+    <body> 
+	
+	
+	<table width="900">
+		<tr><td colspan='7' style="font-size:18px; color:#C10C11C11;">Allocation Data [RI]</td></tr>
+		
+		
+	</table>
+	<br/>
+	
+	
+	
+	
+    <table width="900" class="sample_border" style="background:linear-gradient(to top, #234567 -50%, #234567 100%); color:#fff;">
+        <form id="form1" name="form1" method="post" action="{{=URL(c='zrpt_tosc',f='summary_allocation_data_RI')}}" >
+               <tr align="left" height="20px">
+				   <td colspan="16" >
+				    Region :{{if session.sum_all_product_regionRI=='':}}<input type="text" name="sum_all_product_regionRI" id="sum_all_product_regionRI" value=""  placeholder="Select Value" style="width:100px"/>{{else:}}<input type="text" name="sum_all_product_regionRI" id="sum_all_product_regionRI" value="{{=session.sum_all_product_regionRI}}"  placeholder="Select Value" style="width:100px"/>{{pass}}
+					PPM Code :{{if session.sum_all_product_codeRI=='':}}<input type="text" name="sum_all_product_codeRI" id="sum_all_product_codeRI" value=""  placeholder="Select Value" style="width:100px"/>{{else:}}<input type="text" name="sum_all_product_codeRI" id="sum_all_product_codeRI" value="{{=session.sum_all_product_codeRI}}"  placeholder="Select Value" style="width:100px"/>{{pass}}
+					<!----Area :{{if session.posmArea=='':}}<input type="text" name="posmArea" id="posmArea" value=""  placeholder="Select Value" style="width:100px"/>{{else:}}<input type="text" name="posmArea" id="posmArea" value="{{=session.posmArea}}"  placeholder="Select Value" style="width:100px"/>{{pass}}
+                    MPI :{{if session.posmTown=='':}}<input type="text" name="posmTown" id="posmTown" value=""  placeholder="Select Value" style="width:100px"/>{{else:}}<input type="text" name="posmTown" id="posmTown" value="{{=session.posmTownCode}}"  placeholder="Select Value" style="width:100px"/>{{pass}}--->
+                  <input type="submit" name="btn_filter" id="btn_filter" value="Filter"   class="button_update"/>
+				   <input type="submit" name="btn_all" id="btn_all" value="All"   class="button_update"/>
+				   
+					<a href="{{=URL(c='zrpt_tosc',f='download_summary_allocation_data_RI')}}" style="text-decoration:none;float:right;"><input type="button" name="btn_download" id="btn_download" value="Download" title="Download"  class="button_update"  style="float:center"/></a>
+                    
+				  </td>			
+			   </tr>
+		</form>
+    </table>
+   	
+	
+			
+                
+        <table width="900" border="1" cellpadding="1" cellspacing="1" class="sample_border" >
+            <tr align="left" class="blackCatHead" height="20px" ;  style="font-size:12px; background-color:#E9E9E9;">
+                
+				 <td width=""  >Region</td>
+                <td width=""  >PPM Code</td>
+				<td width=""  >PPM Name</td>
+                  <td width="" align="right">Allocation QTY</td>              
+            </tr>  
+						
+             {{for i in range(len(record_rowSTR)):}}
+				{{recordListStr = record_rowSTR[i]}}
+				<tr>
+				<td>{{=recordListStr['region']}}</td>
+				<td>{{=recordListStr['PPM_CODE']}}</td>
+				<td>{{=recordListStr['PPM_DESC']}}</td>
+				<td align="right">{{=recordListStr['ISSUE_QNTY']}}</td>
+				</tr>
+				{{pass}}
+        </table>
+    
+     
+    </body>
+</html>
+
+

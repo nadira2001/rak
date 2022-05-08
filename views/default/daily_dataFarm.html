@@ -1,0 +1,90 @@
+{{extend 'layout_dashboard_new.html'}}
+
+<html>
+
+<head>
+<style type="text/css">
+  body{
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:13px;
+  
+  }
+  .sample_border{
+  border-width: 1px!important;
+    border:1px solid #bdc6c7!important;
+    background: #d2e8ea75
+  }
+  .sample_border td{
+  border-width: 1px!important;
+    padding: 1px!important;
+    border:1px solid #bdc6c7!important;
+    /*border-bottom-color: #8c8989!important;*/
+  }
+  h5{
+    color: #333131;
+    margin: 5px
+  }
+  .sample_border_tr_head{
+    background: #6dd2de
+  }
+  .sample_border_tr2{
+    background: #b2e2e67a
+  }
+ </style>
+<script type="text/javascript">
+
+function print_page()
+  {
+    window.print()
+  }
+</script>
+
+</head>
+
+<body>
+  
+   <table width="100%" border="1" cellpadding="1" cellspacing="1" class="sample_border" >
+        <tr style="vertical-align:top;" class="sample_border_tr_head">
+          <td colspan="5" style="text-align: center;">
+           <h5>Daily Data Farm</h5>
+          </td>
+        </tr>
+
+        <tr class="sample_border_tr2">
+          <td width="15%" align="left" ><span style="padding-left:5px">Submit By Id</span></td>
+          <td width="25%" align="left" ><span style="padding-left:5px">Submit By Name</span></td>
+          <td width="15%" align="left" ><span style="padding-left:5px">Farm Id</span></td>
+          <td width="15%" align="left" ><span style="padding-left:5px">Farm Name</span></td>
+          <td width="25%" align="left" ><span style="padding-left:5px">Date_Time</span></td>
+        </tr>
+
+
+         {{for i,rec_farmdailyData in enumerate(rec_farmdailyData):}}
+        <tr>
+          <td width="15%" align="left" >
+            <span style="padding-left:5px">{{=rec_farmdailyData.rep_id}}</span>
+          </td>
+          <td width="25%" align="left" >
+            <span style="padding-left:5px">{{=rec_farmdailyData.rep_name}}</span>
+          </td>
+          <td width="15%" align="left" >
+            <span style="padding-left:5px">{{=rec_farmdailyData.farm_id}}</span>
+          </td>
+          <td width="15%" align="left" >
+            <span style="padding-left:5px">{{=rec_farmdailyData.farm_name}}</span>
+          </td>
+          <td width="25%" align="left" >
+            <span style="padding-left:5px">{{=rec_farmdailyData.created_on}}</span>
+          </td>
+        </tr>
+        {{pass}}
+      </table>
+
+<br/>
+
+
+
+</body>
+
+</html>
+

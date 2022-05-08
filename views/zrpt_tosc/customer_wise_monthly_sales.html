@@ -1,0 +1,248 @@
+{{extend 'layout_report.html'}}
+<html>
+         <head>
+    <link rel="stylesheet" href="{{=URL('static', 'js_and_css/ui.theme.css')}}" type="text/css" />
+
+<link rel="stylesheet" href="{{=URL('static', 'js_and_css/jquery-ui.css')}}" type="text/css" />
+
+<link rel="stylesheet" href="{{=URL('static', 'js_and_css/style.css')}}" type="text/css" />
+
+  
+<script src="{{=URL('static','js_and_css/jquery-1.8.2.js')}}"></script>
+
+<script src="{{=URL('static','js_and_css/jquery-ui.js')}}"></script>
+
+
+
+<script>
+var base_url=location.protocol + "//" + location.hostname + (location.port && ":" + location.port) + "/{{=request.application}}/";
+
+$(function() { 
+	   var refListStrTown='';
+	   //alert(base_url+'zrpt_tosc/get_region_list')
+	$.ajax({
+			  url: base_url+'zrpt_tosc/get_region_list',
+			  success: function(resStr) {
+				  refListStrTown=resStr
+			  }
+	});
+	
+	$('#posmregionCUST').keyup(function(){
+			//-------------------------
+			var ref_list = refListStrTown.split(',');				
+			var ref_name=$("#posmregionCUST").val();
+			
+			//---------------- auto complete combo list
+			var ref_list_new=new Array();
+			lc=0;
+			i =0;
+			var refStr="";				
+			while (i < ref_list.length)
+			{
+				refStr=ref_list[i];
+				i=i+1;					
+				var res=refStr.toUpperCase().match(ref_name.toUpperCase());
+				if (res!=null){
+					ref_list_new[lc]=refStr;
+					lc=lc+1;
+					if (lc==30){
+						break;
+					};
+				}else{
+					continue;
+				}					
+			};
+			//alert (ref_list_new);
+			
+			//-------------- auto complete source
+			$( "input#posmregionCUST" ).autocomplete({
+				source: ref_list_new
+			});
+		
+	  });
+	  
+	  
+	$.ajax({
+		  url: base_url+'zrpt_tosc/get_area_list',
+		  success: function(resStr) {
+			  fmStr=resStr
+			  //alert (fmStr)
+		  }
+		});
+ 
+	$('#posmAreaCUST').keyup(function(){	
+		
+		//-------------------------
+		var ref_list = fmStr.split(',');				
+		var ref_name=$("#posmAreaCUST").val();
+		
+		//---------------- auto complete combo list
+		var ref_list_new=new Array();
+		lc=0;
+		i =0;
+		var refStr="";				
+		while (i < ref_list.length)
+		{
+			refStr=ref_list[i];
+			i=i+1;					
+			var res=refStr.toUpperCase().match(ref_name.toUpperCase());
+			if (res!=null){
+				ref_list_new[lc]=refStr;
+				lc=lc+1;
+				if (lc==30){
+					break;
+				};
+			}else{
+				continue;
+			}					
+		};
+		//alert (ref_list_new);
+		
+		//-------------- auto complete source
+		$( "input#posmAreaCUST" ).autocomplete({
+			source: ref_list_new
+		});
+		
+	});	
+	
+	
+ 
+	  	
+//	=============================================
+	$.ajax({
+		  url: base_url+'zrpt_tosc/get_mpo_list',
+		  success: function(resStr) {
+			  trtStr=resStr
+		  }
+		});
+ 
+	$('#posmTownCUST').keyup(function(){	
+		
+		//-------------------------
+		var ref_list = trtStr.split(',');				
+		var ref_name=$("#posmTownCUST").val();
+		
+		//---------------- auto complete combo list
+		var ref_list_new=new Array();
+		lc=0;
+		i =0;
+		var refStr="";				
+		while (i < ref_list.length)
+		{
+			refStr=ref_list[i];
+			i=i+1;					
+			var res=refStr.toUpperCase().match(ref_name.toUpperCase());
+			if (res!=null){
+				ref_list_new[lc]=refStr;
+				lc=lc+1;
+				if (lc==30){
+					break;
+				};
+			}else{
+				continue;
+			}					
+		};
+		//alert (ref_list_new);
+		
+		//-------------- auto complete source
+		$( "input#posmTownCUST" ).autocomplete({
+			source: ref_list_new
+		});
+		
+	});	
+ });
+</script>
+ </head> 
+    <body>  
+
+
+
+	
+	{{total_os_value = 0}}
+	{{total_sales = 0}}
+	{{total_collection = 0}}	
+	
+	{{for j in range(len(record_row_2STR)):}}
+		{{recordListStr2 = record_row_2STR[j]}}
+		{{total_os_value += float(recordListStr2['os_value'])}}
+		{{total_sales += float(recordListStr2['sale_value'])}}
+		{{total_collection += float(recordListStr2['coll_value'])}}
+		{{pass}}
+	<table width="900">
+		<tr><td colspan='7' style="font-size:18px; color:#C10C11C11;">Customer wise monthly sales,Collection and Outstanding</td></tr>
+		<tr>
+			
+			<td style="width:20%; height:40px; padding:10px; background:linear-gradient(to top, #234567 -50%, #234567 100%); color:#fff; font-weight:bold; border-radius:10px; text-align:center;">Total Sales<br/><span style=" font-size:18px;">{{=easy_format(total_sales)}}</span></td>
+			<td>&nbsp;</td>
+			<td style="width:20%; height:40px; padding:10px; background:linear-gradient(to top, #876543 -50%, #876543 100%); color:#fff; font-weight:bold; border-radius:10px; text-align:center;">Total Collection<br/><span style=" font-size:18px;">{{=easy_format(total_collection)}}</span></td>
+			<td>&nbsp;</td>
+			<td style="width:20%; height:40px; padding:10px; background:linear-gradient(to top, #008976 -50%, #008976 100%); color:#fff; font-weight:bold; border-radius:10px; text-align:center;">Total Outstanding<br/><span style=" font-size:18px;">{{=easy_format(total_os_value)}}</span></td>
+		</tr>
+	</table>
+	<br/>
+	
+
+	
+    <table width="900" class="sample_border" style="background:linear-gradient(to top, #234567 -50%, #234567 100%); color:#fff;">
+        <form id="form1" name="form1" method="post" action="{{=URL(c='zrpt_tosc',f='customer_wise_monthly_sales')}}" >
+               <tr align="left" height="20px">
+				   <td colspan="16" >
+					Region ID:{{if session.posmregionCUST=='':}}<input type="text" name="posmregionCUST" id="posmregionCUST" value=""  placeholder="Select Value" style="width:100px"/>{{else:}}<input type="text" name="posmregionCUST" id="posmregionCUST" value="{{=session.posmregionCUST}}"  placeholder="Select Value" style="width:100px"/>{{pass}}
+					Area ID:{{if session.posmAreaCUST=='':}}<input type="text" name="posmAreaCUST" id="posmAreaCUST" value=""  placeholder="Select Value" style="width:100px"/>{{else:}}<input type="text" name="posmAreaCUST" id="posmAreaCUST" value="{{=session.posmAreaCUST}}"  placeholder="Select Value" style="width:100px"/>{{pass}}
+                    Territory ID:{{if session.posmTownCUST=='':}}<input type="text" name="posmTownCUST" id="posmTownCUST" value=""  placeholder="Select Value" style="width:100px"/>{{else:}}<input type="text" name="posmTownCUST" id="posmTownCUST" value="{{=session.posmTownCUST}}"  placeholder="Select Value" style="width:100px"/>{{pass}}
+                  <input type="submit" name="btn_filter" id="btn_filter" value="Filter"   class="button_update"/>
+				   <input type="submit" name="btn_all" id="btn_all" value="All"   class="button_update"/>
+				   
+					<a href="{{=URL(c='zrpt_tosc',f='download_customer_wise_monthly_sales')}}" style="text-decoration:none;float:right;"><input type="button" name="btn_download" id="btn_download" value="Download" title="Download"  class="button_update"  style="float:center"/></a>
+                    
+				  </td>			
+			   </tr>
+		</form>
+    </table>
+   	
+                
+        <table width="900" border="1" cellpadding="1" cellspacing="1" class="sample_border" >
+            <tr align="left" class="blackCatHead" height="20px;" style="font-size:12px; background-color:#E9E9E9;">
+                
+				 <td width=""  >Region</td>
+				 <td width=""  >Area</td>
+				 <td width="" >Territory</td>
+                 <td width=""align="" >Customer Code</td>
+				 <td width=""align="" >Customer Name</td>
+                 <td width="" align="right">Sales</td>
+                  <td width="" align="right">Collection</td>
+                  <td width="" align="right">Outstanding</td>              
+            </tr>   
+			
+				{{for i in range(len(record_rowSTR)):}}
+				{{recordListStr = record_rowSTR[i]}}
+				{{ if i==items_per_page: break}}
+				<tr>
+				<td>{{=recordListStr['rm_code']}}|{{=recordListStr['region']}}</td>
+				<td>{{=recordListStr['fm_code']}}|{{=recordListStr['fm_area']}}</td>
+				<td>{{=recordListStr['mpo_code']}}|{{=recordListStr['terri_name']}}</td>
+				<td>{{=recordListStr['cust_code']}}</td>
+				<td>{{=recordListStr['cust_name']}}</td>
+				
+				<td align="right">{{=easy_format(recordListStr['sale_value'])}}</td>
+				<td align="right">{{=easy_format(recordListStr['coll_value'])}}</td>
+				<td align="right">{{=easy_format(recordListStr['os_value'])}}</td>
+				</tr>
+				{{pass}}
+				
+				
+             
+        </table>
+    
+     {{if page:}}
+&nbsp;&nbsp;<a href="{{=URL(args=[page-page])}}">first</a> |
+&nbsp;&nbsp;<a href="{{=URL(args=[page-1])}}">previous</a> |
+{{pass}}
+
+{{if len(record_rowSTR)>items_per_page:}}
+&nbsp;&nbsp;<a href="{{=URL(args=[page+1])}}">next</a> |
+{{pass}}	
+    </body>
+</html>
+
+

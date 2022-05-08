@@ -1,0 +1,152 @@
+{{extend 'layout_sample_report.html'}}
+
+<html>
+<head>
+</head>
+<body>
+<table width="900px" style="border:none; text-align:center; font-weight:bold;" >
+        <tr >
+            <td width="100" >&nbsp;</td>
+            <td align="center" ><span style="border-bottom:1px solid #333;">DCR Summary FM</span></td>
+            <td width="100" ><img  height="30px" src="{{=URL('static','images/comp_logo1.png')}}"/></td>
+        </tr>
+    </table>
+
+    <table width="900" style="border:none;" >
+        <tr >
+            <td width="100" >Year Month</td>
+            <td width="2" >:</td>
+            <td width="100" >{{=datetime.datetime.strptime(str(yearGet+'-'+monthGet+'-01'),'%Y-%m-%d').strftime('%b-%Y')}}</td>    
+            <td width="100" style="text-align:right;" >FM</td>
+            <td width="2" >:</td>
+            <td>{{=fm}}</td>
+        </tr>		  
+    </table>
+	
+    
+    <table width="900px" border="1" cellpadding="1" cellspacing="1" class="sample_border" >
+        <tr align="left" style="background-color:#EBEBEB; font-size:12px; font-weight:bold;" >		    
+            <td style="width:50px;">Doctor</td>
+            <td style="width:200px;">DoctorName</td>
+            <td style="width:15px;">01</td>
+            <td style="width:15px;">02</td>
+            <td style="width:15px;">03</td>
+            <td style="width:15px;">04</td>
+            <td style="width:15px;">05</td>
+            <td style="width:15px;">06</td>
+            <td style="width:15px;">07</td>
+            <td style="width:15px;">08</td>
+            <td style="width:15px;">09</td>
+            <td style="width:15px;">10</td>
+            <td style="width:15px;">11</td>
+            <td style="width:15px;">12</td>
+            <td style="width:15px;">13</td>
+            <td style="width:15px;">14</td>
+            <td style="width:15px;">15</td>
+            <td style="width:15px;">16</td>
+            <td style="width:15px;">17</td>
+            <td style="width:15px;">18</td>
+            <td style="width:15px;">19</td>
+            <td style="width:15px;">20</td>
+            <td style="width:15px;">21</td>
+            <td style="width:15px;">22</td>
+            <td style="width:15px;">23</td>
+            <td style="width:15px;">24</td>
+            <td style="width:15px;">25</td>
+            <td style="width:15px;">26</td>
+            <td style="width:15px;">27</td>
+            <td style="width:15px;">28</td>
+            <td style="width:15px;">29</td>
+            <td style="width:15px;">30</td>
+            <td style="width:15px;">31</td>            
+            <td style="width:50px; text-align:right;">Total</td>
+      </tr>
+        
+        {{gTotal=0}}
+        {{for i,record in enumerate(records):}}
+        {{
+        totalDayVisit=0
+        totalDayVisit=record.d_1+record.d_2+record.d_3+record.d_4+record.d_5+record.d_6+record.d_7+record.d_8+record.d_9+record.d_10+record.d_11+record.d_12+record.d_13+record.d_14+record.d_15+record.d_16+record.d_17+record.d_18+record.d_19+record.d_20+record.d_21+record.d_22+record.d_23+record.d_24+record.d_25+record.d_26+record.d_27+record.d_28+record.d_29+record.d_30+record.d_31       
+        
+        }} 
+        <tr  align="left" style="font-size:11px;">
+            <td style="background-color:#FFC">{{=record.doc}}</td>
+            <td style="background-color:#FFC">{{=record.doc_name}}</td>
+            <td style="text-align:center">{{if record.d_1>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_2>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_3>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_4>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_5>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_6>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_7>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_8>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_9>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_10>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_11>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_12>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_13>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_14>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_15>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_16>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_17>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_18>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_19>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_20>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_21>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_22>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_23>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_24>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_25>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_26>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_27>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_28>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_29>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_30>0:}}Y{{else:}} {{pass}}</td>
+            <td style="text-align:center">{{if record.d_31>0:}}Y{{else:}} {{pass}}</td>            
+            <td style="background-color:#FFC; text-align:right;">{{=totalDayVisit}}{{gTotal+=totalDayVisit}}</td>
+        </tr>
+        {{pass}}
+        {{if recordsSum:}}
+        <tr  align="left" style=" background-color:#F4F4F4; font-size:11px; font-weight:bold;">
+            <td style="text-align:center">Total</td>
+            <td style="text-align:center">{{=recordsSum[0][db.sm_doc_visit_report_fm.id.count()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_1.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_2.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_3.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_4.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_5.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_6.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_7.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_8.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_9.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_10.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_11.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_12.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_13.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_14.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_15.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_16.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_17.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_18.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_19.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_20.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_21.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_22.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_23.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_24.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_25.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_26.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_27.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_28.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_29.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_30.sum()]}}</td>
+            <td style="text-align:center">{{#=recordsSum[0][db.sm_doc_visit_report_fm.d_31.sum()]}}</td>                        
+            <td style="text-align:right;">{{=gTotal}}</td>
+        </tr>
+        {{pass}}
+</table>		 
+
+</body>
+
+</html>
+
